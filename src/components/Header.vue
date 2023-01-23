@@ -32,10 +32,11 @@
           <a target="_blank" href="https://warren.com.br/magazine/">Magazine</a>
         </li>
       </ul>
-      <ButtonBlack
-        text="Abra sua Conta"
-        linkto="https://warren.com.br/app/#/signup"
-      ></ButtonBlack>
+      <router-link to="/register">
+        <ButtonBlack
+          text="Abra sua Conta"
+        ></ButtonBlack>
+      </router-link>
     </div>
   </header>
 </template>
@@ -135,7 +136,7 @@ ul li a:hover {
   display: block;
   transition: 0.2s;
   animation-name: dropdown-animation;
-  animation-duration: .2s;
+  animation-duration: 0.2s;
   animation-timing-function: ease;
   animation-fill-mode: forwards;
 }
