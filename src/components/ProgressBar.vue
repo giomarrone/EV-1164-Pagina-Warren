@@ -1,7 +1,7 @@
 <template>
   <div class="progress-bar">
     <div v-for="index in steps" :key="index" class="bar">
-      <div :class="index === currentStep ? 'dot-active' : 'dot-inactive'"></div>
+      <div :class="index <= currentStep ? 'dot-active' : 'dot-inactive'"></div>
       <div v-if="index !== steps" class="line"></div>
       <!-- <div class="dot-inactive"></div>
         <div class="line"></div>

@@ -6,26 +6,49 @@
       </router-link>
       <h3>FORMULÁRIO</h3>
     </header>
-    <body>
-        <div class="form-area">
-            <ProgressBar :steps="3" :currentStep="1"></ProgressBar>
+    <main>
+      <div class="form-area">
+        <div class="form-wrapper">
+          <ProgressBar :steps="3" :currentStep="currentStep"></ProgressBar>
+          <div class="teste" v-if="currentStep === 1">
+            <FormStepOne @nextStep="nextStep" />
+          </div>
+          <div class="teste" v-if="currentStep === 2">
+            <FormStepTwo @nextStep="nextStep" />
+          </div>
         </div>
-        <div class="image">
-        </div>
-    </body>
+      </div>
+      <div class="image"></div>
+    </main>
   </div>
 </template>
 
 <script>
 import { PhArrowLeft } from "phosphor-vue";
-import ProgressBar from '../components/ProgressBar.vue'
+import ProgressBar from "../components/ProgressBar.vue";
+import FormStepOne from "../views/FormStepOne.vue";
+import FormStepTwo from '../views/FormStepTwo.vue'
 
 export default {
   name: "NewUser",
 
+  data() {
+    return {
+      currentStep: 1,
+    };
+  },
+
   components: {
     PhArrowLeft,
-    ProgressBar
+    ProgressBar,
+    FormStepOne,
+    FormStepTwo
+  },
+
+  methods: {
+    nextStep() {
+      this.currentStep = this.currentStep + 1;
+    },
   },
 };
 </script>
@@ -38,6 +61,7 @@ header {
   height: 4rem;
   align-items: center;
   position: relative;
+  z-index: 10;
 }
 header h3,
 header svg {
@@ -55,33 +79,42 @@ header svg {
   transform: translate(0%, -50%);
 }
 
-body {
-    display: flex;
-    position: absolute;
-    width: 100%;
-    height: calc(100vh - 4rem);
-    bottom: 0;
+main {
+  background-color: antiquewhite;
+  display: flex;
+  position: relative;
 }
 
 .form-area {
-    display: flex;
-    justify-content: center;
-    padding: 4rem 0;
-    width: 65%;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 65%;
+  height: 100%;
+  box-shadow: 0px 0px 20px black;
+  z-index: 8;
+}
+
+.form-wrapper {
+  width: 60%;
+  display: flex;
+  gap: 3rem;
+  padding: 4rem 0;
+  flex-direction: column;
+  align-items: center;
 }
 
 .image {
-    width: 35%;
-    background-color: blueviolet;
-    background-image: url(../assets/bg-register.png);
-    background-size: cover;
-    background-position: 30%;
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
+  background-color: aqua;
+  width: 35%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
-
+.teste {
+  height: 100%;
+  background-color: antiquewhite;
+}
 </style>
