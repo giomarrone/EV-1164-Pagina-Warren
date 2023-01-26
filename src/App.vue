@@ -5,12 +5,8 @@
 </template>
 
 <script>
-// import HomePage from './Pages/Home.vue'
 export default {
   name: 'App',
-  components: {
-    // HomePage
-  }
 }
 </script>
 
@@ -29,13 +25,18 @@ export default {
 html {
   font-size: 62.5%;
 }
+
 :root {
   --brand-magenta: #e02b57;
+
   --brand-magenta-hover: #f84773;
   --brand-magenta-light: #fddfe8;
   --brand-magenta-dark: #c7264e;
+
   --paragraph: #7e7e7e;
   --title: #1e1e1e;
+
+  --green-check: #59cc3c;
 }
 
 span{

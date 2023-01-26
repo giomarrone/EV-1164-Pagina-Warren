@@ -10,11 +10,14 @@
       <div class="form-area">
         <div class="form-wrapper">
           <ProgressBar :steps="3" :currentStep="currentStep"></ProgressBar>
-          <div class="teste" v-if="currentStep === 1">
+          <div v-if="currentStep === 1">
             <FormStepOne @nextStep="nextStep" />
           </div>
-          <div class="teste" v-if="currentStep === 2">
+          <div v-if="currentStep === 2">
             <FormStepTwo @nextStep="nextStep" />
+          </div>
+          <div v-if="currentStep === 3">
+            <FormComplete />
           </div>
         </div>
       </div>
@@ -28,6 +31,7 @@ import { PhArrowLeft } from "phosphor-vue";
 import ProgressBar from "../components/ProgressBar.vue";
 import FormStepOne from "../views/FormStepOne.vue";
 import FormStepTwo from '../views/FormStepTwo.vue'
+import FormComplete from '../views/FormComplete.vue'
 
 export default {
   name: "NewUser",
@@ -42,12 +46,13 @@ export default {
     PhArrowLeft,
     ProgressBar,
     FormStepOne,
-    FormStepTwo
+    FormStepTwo,
+    FormComplete
   },
 
   methods: {
     nextStep() {
-      this.currentStep = this.currentStep + 1;
+      this.currentStep += 1;
     },
   },
 };
@@ -60,7 +65,9 @@ header {
   display: flex;
   height: 4rem;
   align-items: center;
-  position: relative;
+  position: sticky;
+  top: 0;
+  width: 100%;
   z-index: 10;
 }
 header h3,
@@ -80,9 +87,7 @@ header svg {
 }
 
 main {
-  background-color: antiquewhite;
   display: flex;
-  position: relative;
 }
 
 .form-area {
@@ -90,31 +95,31 @@ main {
   flex-direction: column;
   align-items: center;
   width: 65%;
-  height: 100%;
-  box-shadow: 0px 0px 20px black;
-  z-index: 8;
+  padding: 8rem 0;
 }
 
 .form-wrapper {
   width: 60%;
   display: flex;
   gap: 3rem;
-  padding: 4rem 0;
+  /* padding: 4rem 0; */
   flex-direction: column;
   align-items: center;
+  /* margin-top: 5rem; */
 }
 
 .image {
-  background-color: aqua;
-  width: 35%;
+  background-image: url('../assets/bg-register.png');
+  object-fit: cover;
+  background-size: cover;
+  background-position: 35%;
+  transform: scaleX(-1);
+  background-repeat: no-repeat;
+  position: fixed;
   height: 100%;
-  position: absolute;
   right: 0;
-  bottom: 0;
+  width: 35%;
 }
 
-.teste {
-  height: 100%;
-  background-color: antiquewhite;
-}
+
 </style>
