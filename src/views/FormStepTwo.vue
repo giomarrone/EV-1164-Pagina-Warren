@@ -10,7 +10,7 @@
       <div class="columns">
         <div class="input-area">
           <label class="form-label" for="country">País onde reside</label>
-          <input type="text" class="input-with-icon" />
+          <input type="text" />
         </div>
         <div class="input-area">
           <label class="form-label" for="city">Cidade</label>
@@ -27,7 +27,7 @@
         </div>
         <div class="input-area">
           <label class="form-label" for="address">Endereço</label>
-          <input maxlength="10" type="text" />
+          <input type="text" />
         </div>
       </div>
       <div class="number-input-area">

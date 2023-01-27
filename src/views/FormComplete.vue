@@ -31,7 +31,7 @@ export default {
   margin: 0 auto;
   text-align: center;
   gap: 0.5rem;
-  padding-top: 8rem;
+  padding-top: 5rem;
 }
 
 svg {

@@ -9,16 +9,18 @@
       </p>
       <div class="name-input-area">
         <label class="form-label" for="name-input">Nome completo</label>
-        <input type="text" id="name-input" />
+        <input v-model="name" type="text" id="name-input" />
       </div>
       <div class="columns">
         <div class="input-area">
           <label class="form-label" for="contact-input">E-mail</label>
-          <input type="text" class="input-with-icon" />
+          <ph-envelope class="input-icon" :size="26" />
+          <input v-model="email" type="text" class="input-with-icon" />
         </div>
         <div class="input-area">
           <label class="form-label" for="contact-input">Confirmar e-mail</label>
-          <input type="text" class="input-with-icon" />
+          <ph-envelope class="input-icon" :size="26" />
+          <input v-model="confirmEemail" type="text" class="input-with-icon" />
         </div>
         <div class="input-area">
           <label class="form-label" for="cpf-input">CPF</label>
@@ -42,11 +44,13 @@
           <label class="form-label" for="birthday-input"
             >Data de nascimento</label
           >
+          <ph-calendar-blank class="input-icon" :size="26" />
+          <!-- <input type="date"> -->
           <input
             maxlength="10"
             type="text"
             v-model="birthday"
-            v-mask="'##/##/##'"
+            v-mask="'##/##/####'"
             class="input-with-icon"
           />
         </div>
@@ -73,7 +77,7 @@
         class="submit-btn"
         id="submit-btn"
         type="button"
-        @click="goToNextStep()"
+        @click="validadeForm()"
       >
         Continuar
       </button>
@@ -82,24 +86,81 @@
 </template>
 
 <script>
+import { PhEnvelope, PhCalendarBlank } from "phosphor-vue";
+
 export default {
   name: "FormStepOne",
 
-  emits: ['nextStep'],
+  emits: ["nextStep"],
 
   data() {
     return {
+      name: "",
       cpf: "",
       birthday: "",
       phone: "",
       email: "",
       confirmEemail: "",
+      contact: "",
     };
   },
+  components: {
+    PhEnvelope,
+    PhCalendarBlank,
+  },
+
   methods: {
+    goToNextStep() {
+      this.$emit("nextStep");
+    },
+    validateCpf(cpf) {
+      cpf = this.cpf;
+      cpf = cpf.replace(/[^\d]+/g, "");
+      if (cpf == "") {
+        alert("Informe um número de CPF.")
+        return false
+      }
+      // Elimina CPFs invalidos conhecidos
+      if (
+        cpf.length != 11 ||
+        cpf == "00000000000" ||
+        cpf == "11111111111" ||
+        cpf == "22222222222" ||
+        cpf == "33333333333" ||
+        cpf == "44444444444" ||
+        cpf == "55555555555" ||
+        cpf == "66666666666" ||
+        cpf == "77777777777" ||
+        cpf == "88888888888" ||
+        cpf == "99999999999"
+      ) {
+        alert("CPF inválido.");
+        return false;
+      }
+      // Valida primeiro: digito
+      let add = 0;
+      for (let i = 0; i < 9; i++) add += parseInt(cpf.charAt(i)) * (10 - i);
+      let rev = 11 - (add % 11);
+      if (rev == 10 || rev == 11) rev = 0;
+      if (rev != parseInt(cpf.charAt(9))) {
+        alert("CPF inválido.");
+        return false;
+      }
+      // Valida segundo digito:
+      add = 0;
+      for (let i = 0; i < 10; i++) add += parseInt(cpf.charAt(i)) * (11 - i);
+      rev = 11 - (add % 11);
+      if (rev == 10 || rev == 11) rev = 0;
+      if (rev != parseInt(cpf.charAt(10))) {
+        alert("CPF inválido.");
+        return false;
+      }
+      this.goToNextStep();
+    },
     validadeForm() {
       const whatsappOpt = document.querySelector("#whatsapp");
       const emailsmsOpt = document.querySelector("#email-sms");
+
       if (whatsappOpt.checked === true && emailsmsOpt.checked === true) {
         this.contact = "E-mail, SMS e Whatsapp";
       } else if (
@@ -113,11 +174,11 @@ export default {
       ) {
         this.contact = "E-mail e SMS";
       }
-      if (!this.userName) {
+      if (!this.name) {
         alert("Preencha o campo de nome.");
       } else if (!this.cpf || this.cpf.length < 11) {
         alert("Informe o CPF completo do usuário.");
-      } else if (!this.birthday || this.birthday.length < 6) {
+      } else if (!this.birthday || this.birthday.length < 8) {
         alert("Informe a data de nascimento do usuário.");
       } else if (!this.phone || this.phone.length < 11) {
         alert("Informe o número do telefone do usuário.");
@@ -130,10 +191,7 @@ export default {
         emailsmsOpt.checked === false
       ) {
         alert("Selecione pelo menos uma opção de contato.");
-      }
-    },
-    goToNextStep() {
-      this.$emit('nextStep')
+      } else this.validateCpf();
     },
   },
 };
@@ -242,5 +300,16 @@ p {
 .submit-btn:hover {
   transition: 0.2s;
   background-color: var(--brand-magenta-hover);
+}
+
+.input-icon {
+  position: absolute;
+  z-index: 2;
+  top: 18%;
+  left: 3%;
+}
+
+.input-area input.input-with-icon {
+  padding-left: 4rem;
 }
 </style>
