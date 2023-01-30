@@ -44,12 +44,27 @@
           <label class="form-label" for="birthday-input"
             >Data de nascimento</label
           >
-          <ph-calendar-blank class="input-icon" :size="26" />
-          <!-- <input type="date"> -->
+          <div class="input-icon">
+            <input
+              class="input-date"
+              v-model="birthday"
+              type="date"
+              style="height: 26px"
+              @change="formatBday"
+              id="foo"
+            />
+            <ph-calendar-blank :size="26" />
+          </div>
+          <!-- // useEffect like
+          // Interceptar a mudanca birthday-raw
+          // muda o brithday
+          //-----
+          //onChange(e)
+          // receber e.value -> e muda birthday -->
           <input
             maxlength="10"
             type="text"
-            v-model="birthday"
+            v-model="formattedBirthday"
             v-mask="'##/##/####'"
             class="input-with-icon"
           />
@@ -87,7 +102,6 @@
 
 <script>
 import { PhEnvelope, PhCalendarBlank } from "phosphor-vue";
-
 export default {
   name: "FormStepOne",
 
@@ -100,6 +114,7 @@ export default {
       birthday: "",
       phone: "",
       email: "",
+      formattedBirthday: "",
       confirmEemail: "",
       contact: "",
     };
@@ -110,6 +125,18 @@ export default {
   },
 
   methods: {
+    formatBday() {
+      const input = this.birthday;
+      const process = input.split("-")
+      const year = process[0]
+      const day = process[2]
+      const month = process[1]
+      const output = `${day}/${month}/${year}`
+      this.formattedBirthday = output
+      console.log(output)
+
+      
+    },
     goToNextStep() {
       this.$emit("nextStep");
     },
@@ -117,8 +144,8 @@ export default {
       cpf = this.cpf;
       cpf = cpf.replace(/[^\d]+/g, "");
       if (cpf == "") {
-        alert("Informe um número de CPF.")
-        return false
+        alert("Informe um número de CPF.");
+        return false;
       }
       // Elimina CPFs invalidos conhecidos
       if (
@@ -311,5 +338,30 @@ p {
 
 .input-area input.input-with-icon {
   padding-left: 4rem;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+  display: none;
+  background-color: antiquewhite;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  transform: scale(1);
+  height: 26px;
+  position: absolute;
+  left: 0;
+  width: 24px;
+  padding: 0;
+  top: 0;
+  opacity: 0;
+}
+.input-area input[type="date"] {
+  color: transparent;
+  background-color: transparent;
+  position: absolute;
+  border: none;
+}
+
+.input-area input[type="date"]:focus {
+  outline: transparent;
 }
 </style>
