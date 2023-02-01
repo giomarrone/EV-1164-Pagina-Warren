@@ -9,13 +9,17 @@
       </p>
       <div class="name-input-area">
         <label class="form-label" for="name-input">Nome completo</label>
-        <input v-model="name" type="text" id="name-input" />
+        <input v-model="contactInfo.name" type="text" id="name-input" />
       </div>
       <div class="columns">
         <div class="input-area">
           <label class="form-label" for="contact-input">E-mail</label>
           <ph-envelope class="input-icon" :size="26" />
-          <input v-model="email" type="text" class="input-with-icon" />
+          <input
+            v-model="contactInfo.email"
+            type="text"
+            class="input-with-icon"
+          />
         </div>
         <div class="input-area">
           <label class="form-label" for="contact-input">Confirmar e-mail</label>
@@ -27,7 +31,7 @@
           <input
             maxlength="14"
             type="text"
-            v-model="cpf"
+            v-model="contactInfo.cpf"
             v-mask="'###.###.###-##'"
           />
         </div>
@@ -36,7 +40,7 @@
           <input
             maxlength="15"
             type="text"
-            v-model="phone"
+            v-model="contactInfo.phone"
             v-mask="'(##) #####-####'"
           />
         </div>
@@ -64,7 +68,7 @@
           <input
             maxlength="10"
             type="text"
-            v-model="formattedBirthday"
+            v-model="contactInfo.formattedBirthday"
             v-mask="'##/##/####'"
             class="input-with-icon"
           />
@@ -109,14 +113,18 @@ export default {
 
   data() {
     return {
-      name: "",
-      cpf: "",
       birthday: "",
-      phone: "",
-      email: "",
-      formattedBirthday: "",
       confirmEemail: "",
-      contact: "",
+      contactInfo: [
+        {
+          name: "",
+          cpf: "",
+          phone: "",
+          email: "",
+          formattedBirthday: "",
+          contact: ""
+        },
+      ],
     };
   },
   components: {
@@ -187,29 +195,29 @@ export default {
       const emailsmsOpt = document.querySelector("#email-sms");
 
       if (whatsappOpt.checked === true && emailsmsOpt.checked === true) {
-        this.contact = "E-mail, SMS e Whatsapp";
+        this.contactInfo.contact = "E-mail, SMS e Whatsapp";
       } else if (
         whatsappOpt.checked === true &&
         emailsmsOpt.checked === false
       ) {
-        this.contact = "Whatsapp";
+        this.contactInfo.contact = "Whatsapp";
       } else if (
         whatsappOpt.checked === false &&
         emailsmsOpt.checked === true
       ) {
-        this.contact = "E-mail e SMS";
+        this.contactInfo.contact = "E-mail e SMS";
       }
-      if (!this.name) {
+      if (!this.contactInfo.name) {
         alert("Preencha o campo de nome.");
-      } else if (!this.cpf || this.cpf.length < 11) {
+      } else if (!this.contactInfo.cpf || this.contactInfo.cpf.length < 11) {
         alert("Informe o CPF completo do usuário.");
       } else if (!this.birthday || this.birthday.length < 8) {
         alert("Informe a data de nascimento do usuário.");
-      } else if (!this.phone || this.phone.length < 11) {
+      } else if (!this.contactInfo.phone || this.contactInfo.phone.length < 11) {
         alert("Informe o número do telefone do usuário.");
-      } else if (!this.email || this.email.length == 0) {
+      } else if (!this.contactInfo.email || this.contactInfo.email.length == 0) {
         alert("Informe o e-mail do usuário.");
-      } else if (this.email !== this.confirmEemail) {
+      } else if (this.contactInfo.email !== this.confirmEemail) {
         alert("Os e-mails informados não são iguais.");
       } else if (
         whatsappOpt.checked === false &&

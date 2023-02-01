@@ -38,15 +38,19 @@
         class="submit-btn"
         id="submit-btn"
         type="button"
-        @click="goToNextStep()"
+        @click="isModal = true"
       >
         Continuar
       </button>
     </form>
+    <div class="modal" v-if="isModal === true">
+      <FormModal></FormModal>
+    </div>
   </div>
 </template>
 
 <script>
+import FormModal from '@/components/Modal.vue';
 export default {
   name: "FormStepTwo",
 
@@ -55,7 +59,11 @@ export default {
   data() {
     return {
       cep: "",
+      isModal: false
     };
+  },
+  components: {
+    FormModal
   },
   methods: {
     goToNextStep() {
@@ -66,6 +74,16 @@ export default {
 </script>
 
 <style>
+.modal {
+  position: absolute;
+  z-index: 11;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 h1 {
   font-size: 4rem;
 }
