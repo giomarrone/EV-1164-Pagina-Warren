@@ -127,15 +127,13 @@ export default {
   methods: {
     formatBday() {
       const input = this.birthday;
-      const process = input.split("-")
-      const year = process[0]
-      const day = process[2]
-      const month = process[1]
-      const output = `${day}/${month}/${year}`
-      this.formattedBirthday = output
-      console.log(output)
-
-      
+      const process = input.split("-");
+      const year = process[0];
+      const day = process[2];
+      const month = process[1];
+      const output = `${day}/${month}/${year}`;
+      this.formattedBirthday = output;
+      console.log(output);
     },
     goToNextStep() {
       this.$emit("nextStep");
