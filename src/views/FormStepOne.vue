@@ -9,17 +9,13 @@
       </p>
       <div class="name-input-area">
         <label class="form-label" for="name-input">Nome completo</label>
-        <input v-model="contactInfo.name" type="text" id="name-input" />
+        <input v-model="name" type="text" id="name-input" />
       </div>
       <div class="columns">
         <div class="input-area">
           <label class="form-label" for="contact-input">E-mail</label>
           <ph-envelope class="input-icon" :size="26" />
-          <input
-            v-model="contactInfo.email"
-            type="text"
-            class="input-with-icon"
-          />
+          <input v-model="email" type="text" class="input-with-icon" />
         </div>
         <div class="input-area">
           <label class="form-label" for="contact-input">Confirmar e-mail</label>
@@ -31,7 +27,7 @@
           <input
             maxlength="14"
             type="text"
-            v-model="contactInfo.cpf"
+            v-model="cpf"
             v-mask="'###.###.###-##'"
           />
         </div>
@@ -40,7 +36,7 @@
           <input
             maxlength="15"
             type="text"
-            v-model="contactInfo.phone"
+            v-model="phone"
             v-mask="'(##) #####-####'"
           />
         </div>
@@ -53,7 +49,7 @@
               class="input-date"
               v-model="birthday"
               type="date"
-              style="height: 26px"
+              style="height: 26px; padding: 0; outline: 0;"
               @change="formatBday"
               id="foo"
             />
@@ -68,7 +64,7 @@
           <input
             maxlength="10"
             type="text"
-            v-model="contactInfo.formattedBirthday"
+            v-model="formattedBirthday"
             v-mask="'##/##/####'"
             class="input-with-icon"
           />
@@ -113,18 +109,15 @@ export default {
 
   data() {
     return {
+      name: "",
+      cpf: "",
       birthday: "",
+      phone: "",
+      email: "",
+      formattedBirthday: "",
       confirmEemail: "",
-      contactInfo: [
-        {
-          name: "",
-          cpf: "",
-          phone: "",
-          email: "",
-          formattedBirthday: "",
-          contact: ""
-        },
-      ],
+      contact: "",
+      userContactInfo: []
     };
   },
   components: {
@@ -144,6 +137,14 @@ export default {
       console.log(output);
     },
     goToNextStep() {
+      this.userContactInfo.name = this.name
+      this.userContactInfo.email = this.email
+      this.userContactInfo.cpf = this.cpf
+      this.userContactInfo.phone = this.phone
+      this.userContactInfo.birthday = this.formattedBirthday
+      this.userContactInfo.contact = this.contact
+      console.log(this.userContactInfo)
+
       this.$emit("nextStep");
     },
     validateCpf(cpf) {
@@ -195,29 +196,29 @@ export default {
       const emailsmsOpt = document.querySelector("#email-sms");
 
       if (whatsappOpt.checked === true && emailsmsOpt.checked === true) {
-        this.contactInfo.contact = "E-mail, SMS e Whatsapp";
+        this.contact = "E-mail, SMS e Whatsapp";
       } else if (
         whatsappOpt.checked === true &&
         emailsmsOpt.checked === false
       ) {
-        this.contactInfo.contact = "Whatsapp";
+        this.contact = "Whatsapp";
       } else if (
         whatsappOpt.checked === false &&
         emailsmsOpt.checked === true
       ) {
-        this.contactInfo.contact = "E-mail e SMS";
+        this.contact = "E-mail e SMS";
       }
-      if (!this.contactInfo.name) {
+      if (!this.name) {
         alert("Preencha o campo de nome.");
-      } else if (!this.contactInfo.cpf || this.contactInfo.cpf.length < 11) {
+      } else if (!this.cpf || this.cpf.length < 11) {
         alert("Informe o CPF completo do usuário.");
       } else if (!this.birthday || this.birthday.length < 8) {
         alert("Informe a data de nascimento do usuário.");
-      } else if (!this.contactInfo.phone || this.contactInfo.phone.length < 11) {
+      } else if (!this.phone || this.phone.length < 11) {
         alert("Informe o número do telefone do usuário.");
-      } else if (!this.contactInfo.email || this.contactInfo.email.length == 0) {
+      } else if (!this.email || this.email.length == 0) {
         alert("Informe o e-mail do usuário.");
-      } else if (this.contactInfo.email !== this.confirmEemail) {
+      } else if (this.email !== this.confirmEemail) {
         alert("Os e-mails informados não são iguais.");
       } else if (
         whatsappOpt.checked === false &&

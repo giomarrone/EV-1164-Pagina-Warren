@@ -3,6 +3,9 @@
     <main>
       <header>
         <h4>Confirmar informações de cadastro</h4>
+        <button @click="this.closeModal">
+          <font-awesome-icon icon="fa-solid fa-x" class="fa-lg" />
+        </button>
       </header>
       <div class="line"></div>
       <div class="wrapper">
@@ -10,7 +13,7 @@
         <button class="tab active">Contato</button>
         <button class="tab inactive">Pessoal</button>
         <div v-if="modalPage === 1">
-            <ContactInfoCard></ContactInfoCard>
+          <ContactInfoCard></ContactInfoCard>
         </div>
       </div>
       <div class="line"></div>
@@ -23,19 +26,25 @@
 </template>
 
 <script>
-import ContactInfoCard from '@/views/Contact.vue'
+import ContactInfoCard from "@/views/Contact.vue";
 export default {
   name: "FormModal",
 
   data() {
     return {
-      modalPage: 1
+      modalPage: 1,
     };
   },
 
+  methods: {
+    closeModal() {
+      this.$emit("closeModal");
+    },
+  },
+
   components: {
-    ContactInfoCard
-  }
+    ContactInfoCard,
+  },
 };
 </script>
 
@@ -63,6 +72,19 @@ main {
 
 header {
   padding-block: 2rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  justify-content: center;
+}
+
+header button {
+  position: absolute;
+  right: 3rem;
+  line-height: 0;
+  background-color: transparent;
+  border: none;
 }
 
 .line {
@@ -106,39 +128,38 @@ p {
 }
 
 footer {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .cancel {
-    background-color: transparent;
-    color: var(--brand-magenta);
-    padding: 2rem 3rem;
-    border: 0;
-    border-radius: .5rem;
-    transition: background-color .2s;
-    font-weight: 700;
+  background-color: transparent;
+  color: var(--brand-magenta);
+  padding: 2rem 3rem;
+  border: 0;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+  font-weight: 700;
 }
 
 .cancel:hover {
-    background-color: var(--brand-magenta-light);
+  background-color: var(--brand-magenta-light);
 }
 
 .continue {
-    background-color: var(--brand-magenta);
-    color: white;
-    padding: 2rem 3rem;
-    border: 0;
-    border-radius: .5rem;
-    transition: background-color .2s;
-    font-weight: 700;
+  background-color: var(--brand-magenta);
+  color: white;
+  padding: 2rem 3rem;
+  border: 0;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+  font-weight: 700;
 }
 
 .continue:hover {
-    background-color: var(--brand-magenta-hover);
+  background-color: var(--brand-magenta-hover);
 }
 
 footer button + button {
-    margin-left: 2rem;
+  margin-left: 2rem;
 }
-
 </style>

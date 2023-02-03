@@ -44,7 +44,7 @@
       </button>
     </form>
     <div class="modal" v-if="isModal === true">
-      <FormModal></FormModal>
+      <FormModal @closeModal="closeModal"></FormModal>
     </div>
   </div>
 </template>
@@ -69,6 +69,10 @@ export default {
     goToNextStep() {
       this.$emit("nextStep");
     },
+    closeModal() {
+      this.isModal = false
+      console.log("teste")
+    }
   },
 };
 </script>

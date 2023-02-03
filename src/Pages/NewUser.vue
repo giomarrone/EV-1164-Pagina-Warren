@@ -14,7 +14,7 @@
             <FormStepOne @nextStep="nextStep" />
           </div>
           <div v-if="currentStep === 2">
-            <FormStepTwo @nextStep="nextStep" />
+            <FormStepTwo @nextStep="nextStep" @returnToStart="returnToStart" />
           </div>
           <div v-if="currentStep === 3">
             <FormComplete />
@@ -54,6 +54,9 @@ export default {
     nextStep() {
       this.currentStep += 1;
     },
+    returnToStart() {
+      this.currentStep = 1
+    }
   },
 };
 </script>
