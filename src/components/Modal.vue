@@ -10,10 +10,13 @@
       <div class="line"></div>
       <div class="wrapper">
         <p>Verifique se os dados informados no formulário estão corretos.</p>
-        <button class="tab active">Contato</button>
-        <button class="tab inactive">Pessoal</button>
+        <button class="tab active" @click="modalPage = 1">Contato</button>
+        <button class="tab inactive" @click="modalPage = 2">Pessoal</button>
         <div v-if="modalPage === 1">
-          <ContactInfoCard></ContactInfoCard>
+          <ContactInfoCard :data="data"></ContactInfoCard>
+        </div>
+        <div v-if="modalPage === 2">
+          <PersonalInfoCard :data="data"></PersonalInfoCard>
         </div>
       </div>
       <div class="line"></div>
@@ -27,6 +30,7 @@
 
 <script>
 import ContactInfoCard from "@/views/Contact.vue";
+import PersonalInfoCard from "@/views/Personal.vue";
 export default {
   name: "FormModal",
 
@@ -36,14 +40,23 @@ export default {
     };
   },
 
+  props: {
+    data: {
+      type: Object,
+      required: true
+    }
+  },
+
   methods: {
     closeModal() {
+      console.log(this.data)
       this.$emit("closeModal");
     },
   },
 
   components: {
     ContactInfoCard,
+    PersonalInfoCard
   },
 };
 </script>

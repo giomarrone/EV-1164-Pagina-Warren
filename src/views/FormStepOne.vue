@@ -145,7 +145,7 @@ export default {
       this.userContactInfo.contact = this.contact
       console.log(this.userContactInfo)
 
-      this.$emit("nextStep");
+      this.$emit("nextStep", this.userContactInfo);
     },
     validateCpf(cpf) {
       cpf = this.cpf;

@@ -10,11 +10,11 @@
       <div class="columns">
         <div class="input-area">
           <label class="form-label" for="country">País onde reside</label>
-          <input type="text" />
+          <input type="text" v-model="country"/>
         </div>
         <div class="input-area">
           <label class="form-label" for="city">Cidade</label>
-          <input type="text" />
+          <input type="text" v-model="city"/>
         </div>
         <div class="input-area">
           <label class="form-label" for="phone-input">Cep</label>
@@ -27,30 +27,26 @@
         </div>
         <div class="input-area">
           <label class="form-label" for="address">Endereço</label>
-          <input type="text" />
+          <input type="text" v-model="address"/>
         </div>
       </div>
       <div class="number-input-area">
         <label class="form-label" for="number-input">Número</label>
-        <input type="text" id="number-input" />
+        <input type="text" id="number-input" v-model="number"/>
       </div>
       <button
         class="submit-btn"
         id="submit-btn"
         type="button"
-        @click="isModal = true"
+        @click="goToNextStep"
       >
         Continuar
       </button>
     </form>
-    <div class="modal" v-if="isModal === true">
-      <FormModal @closeModal="closeModal"></FormModal>
-    </div>
   </div>
 </template>
 
 <script>
-import FormModal from '@/components/Modal.vue';
 export default {
   name: "FormStepTwo",
 
@@ -58,20 +54,24 @@ export default {
 
   data() {
     return {
+      country: "",
+      address: "",
+      city: "",
+      number: "",
       cep: "",
-      isModal: false
+      userPersonalInfo: []
     };
-  },
-  components: {
-    FormModal
   },
   methods: {
     goToNextStep() {
-      this.$emit("nextStep");
-    },
-    closeModal() {
-      this.isModal = false
-      console.log("teste")
+      this.userPersonalInfo.country = this.country
+      this.userPersonalInfo.address = this.address
+      this.userPersonalInfo.city = this.city
+      this.userPersonalInfo.number = this.number
+      this.userPersonalInfo.cep = this.cep
+      console.log(this.userPersonalInfo)
+
+      this.$emit("nextStep", this.userPersonalInfo);
     }
   },
 };

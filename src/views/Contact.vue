@@ -5,26 +5,26 @@
       <div class="line"></div>
     </header>
     <div class="info-area">
-        <div class="slot">
-            <h3>CPF</h3>
-            <p>XXX.XXX.XXX-XX</p>
-        </div>
-        <div class="slot">
-            <h3>Celular</h3>
-            <p>(XX) XXXXX-XXXX</p>
-        </div>
-        <div class="slot">
-            <h3>Nome</h3>
-            <p>Giovanne Marrone</p>
-        </div>
-        <div class="slot">
-            <h3>Contato</h3>
-            <p>Whatsapp</p>
-        </div>
-        <div class="slot">
-            <h3>Nascimento</h3>
-            <p>14/ABR/2000</p>
-        </div>
+      <div class="slot">
+        <h3>CPF</h3>
+        <p>{{ this.data.cpf }}</p>
+      </div>
+      <div class="slot">
+        <h3>Celular</h3>
+        <p>{{  this.data.phone }}</p>
+      </div>
+      <div class="slot">
+        <h3>Nome</h3>
+        <p>{{ this.data.name }}</p>
+      </div>
+      <div class="slot">
+        <h3>Contato</h3>
+        <p>{{ this.data.contact }}</p>
+      </div>
+      <div class="slot">
+        <h3>Nascimento</h3>
+        <p>{{ this.data.birthday }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +32,12 @@
 <script>
 export default {
   name: "ContactInfoCard",
+  props: {
+    data: {
+      type: Object,
+      required: true
+    },
+  },
 };
 </script>
 
@@ -44,14 +50,14 @@ export default {
   padding: 3rem;
 }
 header {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .line {
-    width: 100%;
-    background-color: lightgray;
+  width: 100%;
+  background-color: lightgray;
 }
 
 h2 {
@@ -59,23 +65,23 @@ h2 {
 }
 
 .info-area {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .slot {
-    width: 50%;
+  width: 50%;
 }
 
 h3 {
-    font-size: 1.25rem;
-    color: var(--paragraph);
-    font-weight: 400;
+  font-size: 1.25rem;
+  color: var(--paragraph);
+  font-weight: 400;
 }
 
 p {
-    font-size: 1.25rem;
-    color: var(--title);
-    font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--title);
+  font-weight: 700;
 }
 </style>

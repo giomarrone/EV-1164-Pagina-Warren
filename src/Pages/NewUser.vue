@@ -22,6 +22,9 @@
         </div>
       </div>
       <div class="image"></div>
+      <div class="modal" v-if="isModal">
+        <FormModal :data="data" @closeModal="closeModal"></FormModal>
+      </div>
     </main>
   </div>
 </template>
@@ -30,8 +33,9 @@
 import { PhArrowLeft } from "phosphor-vue";
 import ProgressBar from "../components/ProgressBar.vue";
 import FormStepOne from "../views/FormStepOne.vue";
-import FormStepTwo from '../views/FormStepTwo.vue'
-import FormComplete from '../views/FormComplete.vue'
+import FormStepTwo from "../views/FormStepTwo.vue";
+import FormComplete from "../views/FormComplete.vue";
+import FormModal from "@/components/Modal.vue";
 
 export default {
   name: "NewUser",
@@ -39,6 +43,8 @@ export default {
   data() {
     return {
       currentStep: 1,
+      data: {},
+      isModal: false,
     };
   },
 
@@ -47,15 +53,29 @@ export default {
     ProgressBar,
     FormStepOne,
     FormStepTwo,
-    FormComplete
+    FormComplete,
+    FormModal,
   },
 
   methods: {
-    nextStep() {
-      this.currentStep += 1;
+    nextStep(data) {
+      this.data = {
+        ...this.data,
+        ...data,
+      };
+      console.log(this.currentStep)
+      if (this.currentStep == 2) {
+        this.isModal = true
+      } else {
+        this.currentStep += 1;
+      }
     },
     returnToStart() {
-      this.currentStep = 1
+      this.currentStep = 1;
+    },
+    closeModal() {
+      this.isModal = false
+      console.log("teste")
     }
   },
 };
@@ -112,7 +132,7 @@ main {
 }
 
 .image {
-  background-image: url('../assets/bg-register.png');
+  background-image: url("../assets/bg-register.png");
   object-fit: cover;
   background-size: cover;
   background-position: 35%;
@@ -123,6 +143,4 @@ main {
   right: 0;
   width: 35%;
 }
-
-
 </style>
