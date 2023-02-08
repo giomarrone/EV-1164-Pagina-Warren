@@ -10,8 +10,8 @@
       <div class="line"></div>
       <div class="wrapper">
         <p>Verifique se os dados informados no formulário estão corretos.</p>
-        <button class="tab active" @click="modalPage = 1">Contato</button>
-        <button class="tab inactive" @click="modalPage = 2">Pessoal</button>
+        <button id="contact-tab" class="tab active" @click="ContactTab">Contato</button>
+        <button id="personal-tab" class="tab inactive" @click="PersonalTab">Pessoal</button>
         <div v-if="modalPage === 1">
           <ContactInfoCard :data="data"></ContactInfoCard>
         </div>
@@ -21,8 +21,8 @@
       </div>
       <div class="line"></div>
       <footer>
-        <button class="cancel">Cancelar</button>
-        <button class="continue">Continuar</button>
+        <button class="cancel" >Cancelar</button>
+        <button class="continue" @click="nextStep">Continuar</button>
       </footer>
     </main>
   </div>
@@ -52,6 +52,22 @@ export default {
       console.log(this.data)
       this.$emit("closeModal");
     },
+    PersonalTab() {
+      this.modalPage = 2
+
+      document.getElementById("contact-tab").classList.replace("active", "inactive")
+      document.getElementById("personal-tab").classList.replace("inactive", "active")
+    },
+    ContactTab() {
+      this.modalPage = 1
+
+      document.getElementById("contact-tab").classList.replace("inactive", "active")
+      document.getElementById("personal-tab").classList.replace("active", "inactive")
+    },
+    nextStep() {
+      this.$emit("nextStep")
+      console.log('teste')
+    }
   },
 
   components: {
@@ -73,7 +89,7 @@ export default {
 }
 main {
   background-color: white;
-  width: fit-content;
+  width: 60rem;
   height: fit-content;
   border: 0;
   border-radius: 1rem;

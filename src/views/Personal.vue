@@ -18,7 +18,7 @@
           <p>{{ this.data.city }}</p>
         </div>
         <div class="slot">
-          <h3>Number</h3>
+          <h3>Número</h3>
           <p>{{ this.data.number }}</p>
         </div>
         <div class="slot">

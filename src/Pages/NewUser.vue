@@ -23,7 +23,7 @@
       </div>
       <div class="image"></div>
       <div class="modal" v-if="isModal">
-        <FormModal :data="data" @closeModal="closeModal"></FormModal>
+        <FormModal @nextStep="nextStep" :data="data" @closeModal="closeModal"></FormModal>
       </div>
     </main>
   </div>
