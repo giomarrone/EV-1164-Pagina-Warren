@@ -14,12 +14,12 @@
       <div class="columns">
         <div class="input-area">
           <label class="form-label" for="contact-input">E-mail</label>
-          <ph-envelope class="input-icon" :size="26" />
+          <font-awesome-icon class="input-icon font-awesome fa-2x" icon="fa-solid fa-envelope" />
           <input v-model="email" type="text" class="input-with-icon" />
         </div>
         <div class="input-area">
           <label class="form-label" for="contact-input">Confirmar e-mail</label>
-          <ph-envelope class="input-icon" :size="26" />
+          <font-awesome-icon class="input-icon font-awesome fa-2x" icon="fa-solid fa-envelope" />
           <input v-model="confirmEemail" type="text" class="input-with-icon" />
         </div>
         <div class="input-area">
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { PhEnvelope, PhCalendarBlank } from "phosphor-vue";
+import {PhCalendarBlank } from "phosphor-vue";
 export default {
   name: "FormStepOne",
 
@@ -120,8 +120,7 @@ export default {
     };
   },
   components: {
-    PhEnvelope,
-    PhCalendarBlank,
+    PhCalendarBlank
   },
 
   methods: {
@@ -361,5 +360,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .input-area input[type="date"]:focus {
   outline: transparent;
+}
+.font-awesome {
+  top: 25%;
+  left: 4%;
 }
 </style>
