@@ -80,7 +80,7 @@
   }
   
   p {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: var(--title);
     font-weight: 700;
   }

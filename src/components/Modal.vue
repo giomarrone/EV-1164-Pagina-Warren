@@ -22,7 +22,7 @@
       <div class="line"></div>
       <footer>
         <button class="cancel" >Cancelar</button>
-        <button class="continue" @click="nextStep">Continuar</button>
+        <button class="continue" @click="finalStep">Continuar</button>
       </footer>
     </main>
   </div>
@@ -64,9 +64,8 @@ export default {
       document.getElementById("contact-tab").classList.replace("inactive", "active")
       document.getElementById("personal-tab").classList.replace("active", "inactive")
     },
-    nextStep() {
-      this.$emit("nextStep")
-      console.log('teste')
+    finalStep() {
+      this.$emit("finalStep")
     }
   },
 
@@ -123,10 +122,10 @@ header button {
 }
 h4 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 p {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 

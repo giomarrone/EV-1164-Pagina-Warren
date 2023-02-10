@@ -38,7 +38,7 @@
         class="submit-btn"
         id="submit-btn"
         type="button"
-        @click="goToNextStep"
+        @click="verifyForm"
       >
         Continuar
       </button>
@@ -63,6 +63,22 @@ export default {
     };
   },
   methods: {
+    verifyForm() {
+      if(!this.country || this.country.length == 0) {
+        alert("Informe o país em que você reside.")
+      } else if (!this.city || this.city.length == 0) {
+        alert("Informe a cidade em que você reside.")
+      } else if (!this.cep || this.cep.length == 0) {
+        alert("Informe o CEP da sua residência.")
+      } else if (this.cep.length < 9) {
+        alert("CEP incompleto.")
+      } else if (!this.address|| this.address.length == 0) {
+        alert("Informe o seu endereço.")
+      } else if (!this.number|| this.number.length == 0) {
+        alert("Informe o número da sua residência.")
+      } else this.goToNextStep()
+    },
+
     goToNextStep() {
       this.userPersonalInfo.country = this.country
       this.userPersonalInfo.address = this.address

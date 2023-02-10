@@ -19,7 +19,24 @@
       </div>
       <div class="slot">
         <h3>Contato</h3>
-        <p>{{ this.data.contact }}</p>
+        <div v-if='this.data.contact == "Whatsapp"'>
+          <div class="contact-txt" style="display: flex; gap: 1rem; align-items: center;">
+            <font-awesome-icon class="fa-3x" icon="fa-brands fa-whatsapp" />
+            <p>Whatsapp</p>
+          </div>
+        </div>
+        <div v-if='this.data.contact == "E-mail e SMS"'>
+          <div class="contact-txt" style="display: flex; gap: 1rem; align-items: center;">
+            <font-awesome-icon class="fa-3x" icon="fa-solid fa-envelope" />
+            <p>E-mail e SMS</p>
+          </div>
+        </div>
+        <div v-if='this.data.contact == "E-mail, SMS e Whatsapp"' style="display: flex; flex-direction: column; gap: .5rem;">
+          <div class="contact-txt" style="display: flex; gap: 1rem; align-items: center;">
+            <font-awesome-icon class="fa-3x" icon="fa-solid fa-face-smile" />
+            <p>E-mail, SMS e Whatsapp</p>
+          </div>
+        </div>
       </div>
       <div class="slot">
         <h3>Nascimento</h3>
@@ -77,10 +94,11 @@ h3 {
   font-size: 1.25rem;
   color: var(--paragraph);
   font-weight: 400;
+  margin-bottom: .5rem;
 }
 
 p {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: var(--title);
   font-weight: 700;
 }

@@ -23,7 +23,7 @@
       </div>
       <div class="image"></div>
       <div class="modal" v-if="isModal">
-        <FormModal @nextStep="nextStep" :data="data" @closeModal="closeModal"></FormModal>
+        <FormModal :data="data" @closeModal="closeModal" @finalStep="finalStep"></FormModal>
       </div>
     </main>
   </div>
@@ -75,7 +75,11 @@ export default {
     },
     closeModal() {
       this.isModal = false
-      console.log("teste")
+      console.log(this.isModal)
+    },
+    finalStep() {
+      this.isModal = false
+      this.currentStep = 3
     }
   },
 };
